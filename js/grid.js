@@ -121,7 +121,6 @@ Grid.prototype.addStartTiles = function () {
 Grid.prototype.addRandomTile = function () {
   if (this.cellsAvailable()) {
     var value = Math.random() < 0.9 ? 2 : 4;
-    //var value = Math.random() < 0.9 ? 256 : 512;
     var tile = new Tile(this.randomAvailableCell(), value);
 
     this.insertTile(tile);
@@ -183,9 +182,6 @@ Grid.prototype.move = function (direction) {
       tile = self.cellContent(cell);
 
       if (tile) {
-        //if (debug) {
-          //console.log('tile @', x, y);
-        //}
         var positions = self.findFarthestPosition(cell, vector);
         var next      = self.cellContent(positions.next);
 
@@ -208,29 +204,17 @@ Grid.prototype.move = function (direction) {
             //won = true;
           }
         } else {
-          //if (debug) {
-            //console.log(cell);
-            //console.log(tile);
-          //}
           self.moveTile(tile, positions.farthest);
         }
 
         if (!self.positionsEqual(cell, tile)) {
           self.playerTurn = false;
-          //console.log('setting player turn to ', self.playerTurn);
           moved = true; // The tile moved from its original cell!
         }
       }
     });
   });
 
-  //console.log('returning, playerturn is', self.playerTurn);
-  //if (!moved) {
-    //console.log('cell', cell);
-    //console.log('tile', tile);
-    //console.log('direction', direction);
-    //console.log(this.toString());
-  //}
   return {moved: moved, score: score, won: won};
 };
 
@@ -280,8 +264,6 @@ Grid.prototype.movesAvailable = function () {
 Grid.prototype.tileMatchesAvailable = function () {
   var self = this;
 
-  //var matches = 0;
-
   var tile;
 
   for (var x = 0; x < this.size; x++) {
@@ -296,7 +278,7 @@ Grid.prototype.tileMatchesAvailable = function () {
           var other  = self.cellContent(cell);
 
           if (other && other.value === tile.value) {
-            return true; //matches++; // These two tiles can be merged
+            return true; // These two tiles can be merged
           }
         }
       }
@@ -435,7 +417,6 @@ Grid.prototype.monotonicity = function() {
         if ( self.cellOccupied(target) ) {
           targetValue = Math.log(self.cellContent(target).value ) / Math.log(2);
           if ( targetValue > value ) {
-            //console.log(cell, value, target, targetValue);
             increases += targetValue - value;
           }
         } 
@@ -537,31 +518,6 @@ Grid.prototype.maxValue = function() {
   return Math.log(max) / Math.log(2);
 }
 
-// WIP. trying to favor top-heavy distributions (force consolidation of higher value tiles)
-/*
-Grid.prototype.valueSum = function() {
-  var valueCount = [];
-  for (var i=0; i<11; i++) {
-    valueCount.push(0);
-  }
-
-  for (var x=0; x<4; x++) {
-    for (var y=0; y<4; y++) {
-      if (this.cellOccupied(this.indexes[x][y])) {
-        valueCount[Math.log(this.cellContent(this.indexes[x][y]).value) / Math.log(2)]++;
-      }
-    }
-  }
-
-  var sum = 0;
-  for (var i=1; i<11; i++) {
-    sum += valueCount[i] * Math.pow(2, i) + i;
-  }
-
-  return sum;
-}
-*/
-
 // check for win
 Grid.prototype.isWin = function() {
   var self = this;
@@ -576,8 +532,3 @@ Grid.prototype.isWin = function() {
   }
   return false;
 }
-
-//Grid.prototype.zobristTable = {}
-//for
-//Grid.prototype.hash = function() {
-//}

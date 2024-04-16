@@ -11,7 +11,7 @@ var net = new convnetjs.Net();
 net.makeLayers(layer_defs);
 
 (function (){
-    document.getElementById('ai-info').innerHTML="Downloading model......(about 25M). <br /><strong>NN AI won't work until the model is loaded</strong><div class='progress-container'><div class='progressbar' id='progressbar' style='width: 0%'></div></div>";
+    document.getElementById('ai-info').innerHTML="Скачиваем модель......(около 25M). <br /><strong>Solver не будет работать, пока не скачается модель</strong><div class='progress-container'><div class='progressbar' id='progressbar' style='width: 0%'></div></div>";
     var oReq = new XMLHttpRequest();
     oReq.open("GET", "model.bin", true);
     oReq.responseType = "arraybuffer";
@@ -44,7 +44,7 @@ net.makeLayers(layer_defs);
             }
         }
     }
-    document.getElementById('ai-info').innerHTML="Model downloaded. enjoy the neural network AI!";
+    document.getElementById('ai-info').innerHTML="Модель установлена. AI Solver готов к работе!";
     };
     oReq.send(null);
 })();
@@ -75,14 +75,10 @@ AI.prototype.make_input = function(){
 
 // performs a search and returns the best move
 AI.prototype.getBest = function() {
- //console.log(this.grid);
  this.make_input()
- //console.log(this.v);
  var p = net.forward(this.v).w;
   var m=[0,1,2,3];
   m.sort(function(i,j){return p[j]-p[i]});
-  //console.log(p);
-  //console.log(m);
   m = m.map(function(x){ return (x+3)%4;})
   return {move:m[0], moves:m};
 }

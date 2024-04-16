@@ -1,6 +1,6 @@
-# A 2048 Deep Learning AI (that does not suck)
+# A 2048 AI Solver
 
-The following is the result of 100K games played by the neural network
+Результат 100K игр сыгранных 
 
 |max tile| % of games| accumulated %| reversed accumulated %| 
 |--------|-----------|--------------|---------|
@@ -17,8 +17,6 @@ The following is the result of 100K games played by the neural network
 |16      | 0.005%    |       99.999%|  0.006%|
 |8       | 0.001%    |      100.000%|  0.001%|
 
-or in graph
-
 <img src="plot1.png" />
 
 The average score is 85351.8 and the average length of a game is 3733.6 steps.
@@ -33,13 +31,6 @@ The graph indicates that the AI performs relatively weak in early stage of the g
 To run https://github.com/tjwei/2048-NN/blob/master/my2048-rl-theano-n-tuple-Copy7.ipynb you need selenium firefox lasagne and cudnn
 
 It is likely to reach 2048 tiles in less than 100 games of learning (sometimes less than 50 games).
-
-
-Modified the learning rate of adam to 0.0001, it should reach 2048 in more than 60% of games.
-
-In my experiment, after 15K training games, it achieves an average 1600+ steps and 30000+ score. 
-
-it can consistently reach 2048 in 75%+ of games, with a peak success rate 85%+.
 
 Following plots are the average steps and average score during the training(for every 100 training games). 
 
